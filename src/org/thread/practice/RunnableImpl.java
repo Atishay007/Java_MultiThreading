@@ -12,6 +12,8 @@ public class RunnableImpl {
 		// Traditional way
 		// ThreadWorker th = new ThreadWorker();
 		// Thread t1 = new Thread(th);
+		//or
+		//Thread t1 = new Thread(new ThreadWorker());
 
 		t1.start();
 		t1.join();
