@@ -7,11 +7,10 @@ public class ProducerConsumerProblem {
 
 	private static int MAX = 5;
 	private static int MIN = 0;
-	private static List<Integer> lstofInt = new ArrayList<>();
+	private List<Integer> lst = new ArrayList<>();
 	private static int COUNT = 0;
 
 	public ProducerConsumerProblem() {
-
 	}
 
 	public static void main(String[] args) throws InterruptedException {
@@ -32,6 +31,7 @@ public class ProducerConsumerProblem {
 			}
 		});
 
+		t1.setName("Producer Thread");
 		t1.start();
 		t2.start();
 		t1.join();
@@ -40,18 +40,20 @@ public class ProducerConsumerProblem {
 
 	private void producer() throws InterruptedException {
 		System.out.println("Producer Thread Started: ");
-		synchronized (this) {
+		System.out.println(Thread.currentThread().getName());
+		synchronized (lst) {
 
 			while (true) {
-				if (lstofInt.size() == MAX) {
-					wait();
+				if (lst.size() == MAX) {
+					// Code after wait() method will not be executed.
+					lst.wait();
 				} else {
-					lstofInt.add(COUNT);
+					lst.add(COUNT);
 					System.out.println("No Added: " + COUNT);
 					COUNT++;
 					// if there is code after notify()method then that code will be
 					// executed.
-					notify();
+					lst.notify();
 				}
 				Thread.sleep(300);
 			}
@@ -60,13 +62,15 @@ public class ProducerConsumerProblem {
 
 	private void consumer() throws InterruptedException {
 		System.out.println("Consumer Thread Started: ");
-		synchronized (this) {
+		synchronized (lst) {
 			while (true) {
-				if (lstofInt.size() == MIN) {
-					wait();
+				if (lst.size() == MIN) {
+					// Code after wait() method will not be executed.
+					lst.wait();
 				} else {
-					System.out.println("No Removed: " + lstofInt.remove(--COUNT));
-					notify();
+					System.out.println("No Removed: " + lst.remove(--COUNT));
+					// Code after notify will get executed.
+					lst.notify();
 				}
 				Thread.sleep(300);
 			}
