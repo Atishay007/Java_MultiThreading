@@ -41,11 +41,16 @@ class Thread4 extends Thread {
 		this.obj = obj;
 	}
 
+	@Override
 	public void run() {
 		try {
 			lock.lock();
 			obj.incr();
 		} finally {
+			// Very important to call unlock
+			// We have to write this in finally, in case of exception
+			// occurred the finally block will be called and the lock
+			// will be removed from the resource.
 			lock.unlock();
 		}
 
