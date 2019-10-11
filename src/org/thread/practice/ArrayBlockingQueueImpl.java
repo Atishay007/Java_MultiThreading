@@ -3,19 +3,20 @@ package org.thread.practice;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-public class ProducerConsumerBlockingQueue_Impl {
+public class ArrayBlockingQueueImpl {
 
+	// put and take are the main methods that will be used in MultiThreading.
 	private BlockingQueue<Integer> lst = new ArrayBlockingQueue<>(10);
-	private static final int MAX_SIZE = 3;
+	private static final int MAX_SIZE = 20;
 	private static final int MIN_SIZE = 0;
 	private int ele = 0;
 
-	public ProducerConsumerBlockingQueue_Impl() {
+	public ArrayBlockingQueueImpl() {
 
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		ProducerConsumerBlockingQueue_Impl obj = new ProducerConsumerBlockingQueue_Impl();
+		ArrayBlockingQueueImpl obj = new ArrayBlockingQueueImpl();
 		// Method Reference in Java.
 		// Producers
 		Thread t1 = new Thread(obj::enqueue);
