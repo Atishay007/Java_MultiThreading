@@ -11,11 +11,13 @@ import java.util.concurrent.TimeUnit;
 public class FutureAndCallableImpl {
 
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
-		ExecutorService exe = Executors.newFixedThreadPool(3);
+		ExecutorService exe = Executors.newSingleThreadExecutor();
 		Future<Integer> future = exe.submit(new Worker());
 		System.out.println(future.get());
 
+		// gracefully shutting down the thread.
 		exe.shutdown();
+		System.out.println(exe.isShutdown());
 		exe.awaitTermination(1000, TimeUnit.MILLISECONDS);
 		exe.shutdownNow();
 	}
