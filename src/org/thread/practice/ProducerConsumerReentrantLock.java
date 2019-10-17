@@ -54,7 +54,6 @@ public class ProducerConsumerReentrantLock {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					// wait();
 				}
 				try {
 					Thread.sleep(1000);
@@ -74,6 +73,7 @@ public class ProducerConsumerReentrantLock {
 			lock.lock();
 			while (true) {
 				if (lst.size() > MIN_SIZE) {
+					// NOTE: This is a preDecrement and it will return element.
 					System.out.println(lst.remove(--ele));
 					con.signalAll();
 				} else {
