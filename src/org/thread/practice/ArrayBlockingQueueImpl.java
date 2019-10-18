@@ -6,9 +6,15 @@ import java.util.concurrent.BlockingQueue;
 public class ArrayBlockingQueueImpl {
 
 	// put and take are the main methods that will be used in MultiThreading.
-	private BlockingQueue<Integer> lst = new ArrayBlockingQueue<>(10);
-	private static final int MAX_SIZE = 20;
-	private static final int MIN_SIZE = 0;
+	// At a time only 2 elements can be added or present in the Queue.
+	// If we try to add more elements using add method
+	// It will throw exception: illegalStateException: Queue is full.
+	// If we are using offer(special case): it will return false.
+
+	// Same goes for remove, it will remove exception like Queue is empty
+	// whereas poll() will not throw any exception.
+
+	private BlockingQueue<Integer> lst = new ArrayBlockingQueue<>(2);
 	private int ele = 0;
 
 	public ArrayBlockingQueueImpl() {
@@ -39,15 +45,14 @@ public class ArrayBlockingQueueImpl {
 	public void enqueue() {
 		System.out.println("***Producer Thread Started***");
 		while (true) {
-			if (lst.size() < MAX_SIZE) {
-				try {
-					lst.put(ele);
-					System.out.println("Produced " + ele);
-					ele++;
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+			try {
+				lst.put(ele);
+				System.out.println("Produced " + ele);
+				System.out.println("Size of List: " + lst.size());
+				ele++;
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -55,13 +60,11 @@ public class ArrayBlockingQueueImpl {
 	public void dequeue() {
 		System.out.println("***Consumer Thread Started***");
 		while (true) {
-			if (lst.size() > MIN_SIZE) {
-				try {
-					System.out.println(" Consumed: " + lst.take());
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+			try {
+				System.out.println(" Consumed: " + lst.take());
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}
