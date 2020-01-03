@@ -3,18 +3,17 @@ package org.thread.practice;
 //Classic Example of Thread DeadLock.
 
 //We can detect Thread DeadLock using 
-//1. Jconsole
-//2. Java Mission Control
+//1. Jconsole.
+//2. Java Mission Control.
 
 //Solution of DeadLock is to keep lock in sequence.
-//Like Always Bool will have 1st lock then Pen will have other lock.
+//Like: Always Book will have 1st lock then Pen will have other lock.
 public class ThreadDeadLock {
 	public static void main(String[] args) {
 		Object pen = new Object();
 		Object book = new Object();
 
 		Thread1 t1 = new Thread1(pen, book);
-
 		Thread2 t2 = new Thread2(pen, book);
 
 		t1.start();
@@ -38,6 +37,7 @@ class Thread1 extends Thread {
 	public void run() {
 		synchronized (book) {
 			try {
+				// Making Thread Sleep to keep the lock
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
