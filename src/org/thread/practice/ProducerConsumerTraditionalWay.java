@@ -3,19 +3,19 @@ package org.thread.practice;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProducerConsumerWithMethodReference {
+public class ProducerConsumerTraditionalWay {
 
 	private List<Integer> lst = new ArrayList<>();
 	private static final int MAX_SIZE = 3;
 	private static final int MIN_SIZE = 0;
 	private int ele = 0;
 
-	public ProducerConsumerWithMethodReference() {
+	public ProducerConsumerTraditionalWay() {
 
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		ProducerConsumerWithMethodReference obj = new ProducerConsumerWithMethodReference();
+		ProducerConsumerTraditionalWay obj = new ProducerConsumerTraditionalWay();
 		// Method Reference in Java.
 		Thread t1 = new Thread(obj::enqueue);
 		Thread t2 = new Thread(obj::dequeue);
@@ -43,7 +43,6 @@ public class ProducerConsumerWithMethodReference {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -65,7 +64,6 @@ public class ProducerConsumerWithMethodReference {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
